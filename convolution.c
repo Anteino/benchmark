@@ -114,11 +114,11 @@ BLOB* convolution(BLOB* input, conv_param_t* p){
     //perform convolution
     for(int g=0;g<p->group;g++)
         for(int o=g*(out->d/p->group);o<(g+1)*(out->d/p->group);o++)
-            for(int i=g*(in->d/p->group);i<(g+1)*(in->d/p->group);i++)
-                for(int m=0;m<out->h;m++)
-                    for(int n=0;n<out->w;n++)
-                        for(int k=0;k<Ky;k++)
-                            for(int l=0;l<Kx;l++)
+	    for(int m=0;m<out->h;m++)
+		for(int n=0;n<out->w;n++)
+		    for(int k=0;k<Ky;k++)
+			for(int l=0;l<Kx;l++)
+            		    for(int i=g*(in->d/p->group);i<(g+1)*(in->d/p->group);i++)
                                 //note: absolute starting i is subtracted for the weights, see load_weights function for more info
                                 blob_data(out,o,m,n)+=blob_data(in, i, m*p->Sy+k, n*p->Sx+l) * blob_data(w, o, i-(g*(in->d/p->group)), k*Kx + l);
 
